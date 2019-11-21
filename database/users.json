@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5dd0da474e98e13e97a2be31"},"username":"admin","password":"admin","name":"Nguyễn Văn Admin","CMND":"12345678","SDT":"0123456789","rule":{"$numberInt":"0"}}
+{"_id":{"$oid":"5dd0da624e98e13e97a2be32"},"username":"admin1","password":"admin1","name":"Nguyễn Văn Admin1","CMND":"85469712","SDT":"0654987121","rule":{"$numberInt":"0"}}
+{"_id":{"$oid":"5dd0da6c4e98e13e97a2be33"},"username":"user1","password":"user1","name":"Nguyễn Văn User1","CMND":"32165498","SDT":"0321654987","rule":{"$numberInt":"1"},"Blate":["59X212345","59G213526"]}
+{"_id":{"$oid":"5dd0da744e98e13e97a2be34"},"username":"user2","password":"user2","name":"Nguyễn Văn User2","CMND":"45678912","SDT":"0321654987","rule":{"$numberInt":"1"},"Blate":["59X232154"]}
+{"_id":{"$oid":"5dd0da7e4e98e13e97a2be35"},"username":"user3","password":"user3","name":"Nguyễn Văn User3","CMND":"78945621","SDT":"0321654987","rule":{"$numberInt":"1"},"Blate":["59X232155"]}
