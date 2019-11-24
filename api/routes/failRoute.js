@@ -14,4 +14,8 @@ module.exports = function(app){
     
     app.route('/fails/plate')
         .post(Fail.read_list_byplate)
+
+        
+    app.route('/fails/byplateanddate')
+        .get(Fail.read_list_bydate_img)
 };

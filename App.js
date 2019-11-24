@@ -18,6 +18,7 @@ let port = process.env.PORT || 8000;
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.use(express.static('public'));
 
 app.use(function(req,res,next){
     res.setHeader('Access-Control-Allow-Origin','*');

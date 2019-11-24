@@ -10,7 +10,7 @@ var UserSchema = new Schema({
   },
   Blate: String,
   date: String,
-  urlImg: String,
+  time: String,
   user : Object
 
 });

@@ -1,5 +1,5 @@
-{"_id":{"$oid":"5dd12e87a43aeee8bca660a8"},"Blate":"59G213526","date":"2019/11/17","urlImg":"","name":"Winner 150"z}
-{"_id":{"$oid":"5dd12eaba43aeee8bca660a9"},"Blate":"59X232154","date":"2019/11/16","urlImg":""}
-{"_id":{"$oid":"5dd12eb5a43aeee8bca660aa"},"Blate":"59X232155","date":"2019/16/11","urlImg":""}
-{"_id":{"$oid":"5dd12eb9a43aeee8bca660ab"},"Blate":"59X232155","date":"2019/11/17","urlImg":""}
-{"_id":{"$oid":"5dd244581234b32988a9b13a"},"Blate":"59X212345","date":"2019/18/11","urlImg":"","__v":{"$numberInt":"0"}}
+{"Blate" : "59G213526", "date" : "2019/11/17", "time" : "05:06:50" }
+{"Blate" : "59X232154", "date" : "2019/11/16", "time" : "05:07:20" }
+{"Blate" : "59X232155", "date" : "2019/11/16", "time" : "05:08:12" }
+{"Blate" : "59X232155", "date" : "2019/11/17", "time" : "12:25:16" }
+{"Blate" : "59X212345", "date" : "2019/11/18", "time" : "13:27:18" }

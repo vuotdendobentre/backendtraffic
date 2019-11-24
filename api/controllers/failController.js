@@ -137,6 +137,14 @@ exports.read_list_bydate = function(req,res){
     
 }
 
+exports.read_list_bydate_img = function (req,res){
+    console.log('asdfasdfasdfasdf')
+    fails.find({Blate:req.headers.plate,data:req.headers.date},function(err,fail){
+        if(err) res.send(err);
+        res.json(fail)
+    })
+}
+
 function Chonfile(arr,soluong){
     soluong = parseInt(soluong);
     soluong=soluong*15;
