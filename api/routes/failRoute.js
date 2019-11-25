@@ -3,7 +3,7 @@ module.exports = function(app){
 
     //Fail route
 
-    app.route('/fails/newbydate/:date/:sl')
+    app.route('/fails/newbydate/:plate/:date/:time/:sl')
         .get(Fail.read_list_onlydate)
 
     app.route('/fails')     

@@ -57,47 +57,35 @@ exports.read_a_fail = function (req, res) {
 
 exports.read_list_byplate = function (req, res) {
     let result = [];
+    console.log(req.body.plate)
     try {
-
-        if (req.body.plate) {
-            if (req.body.plate.length > 0) {
-
-                req.body.plate.map((value, index) => {
-                    Fail.find({ Blate: value }, function (err, fail) {
-                        if (err) res.send(err);
-                        data = fail;
-                        fail.map((value, index) => {
-                            User.find({ Blate: value.Blate }).select('name SDT CMND').exec((err, failUser) => {
-                                if (err) res.send(err);
-                                data[index].user = failUser[0]
-                                if (index === data.length - 1) {
-                                    result = [...result, ...data];
-
-                                }
-                            })
+        User.find({Blate:req.body.plate}).select('name SDT CMND').exec((err,user)=>{
+            
+            if(user){
+                req.body.plate.map((value,index)=>{
+                    setTimeout(()=>{
+                        Fail.find({Blate:value},(err,fail)=>{
+                            if(err) res.send(err);
+                            setTimeout(()=>{
+                                if(fail){
+                                    result= [...result,...fail]
+                               }
+                            },200)
                         })
-
-                    })
-                    if (index === req.body.plate.length - 1) {
-                        setTimeout(() => {
-
-                            res.json({
-                                success: true,
-                                data: result
-                            })
-                        }, 1000)
+                    },200)
+                    if(req.body.plate.map.length-1 === index){
+                        setTimeout(()=>{
+                            for(let i = 0 ; i < result.length ; i++){
+                                result[i].user = user[0] ;
+                            }
+                            console.log(result)
+                            res.json(result)
+                        },1000)
                     }
                 })
-            } else {
-                res.json({
-                    success: false
-                })
             }
-        } else {
-            res.json({
-                success: false
-            })
-        }
+        })
+        
     } catch (err) {
         res.send(false)
     }
@@ -120,7 +108,7 @@ exports.read_list_bydate = function (req, res) {
     Fail.find({ date: { $regex: result, $options: 'i' } }, function (err, fail) {
         if (err) res.send(err);
         data = fail;
-        if(data.length>0){
+        if (data.length > 0) {
             fail.map((value, index) => {
                 User.find({ Blate: value.Blate }).select('name SDT CMND').exec((err, failUser) => {
                     if (err) res.send(err);
@@ -130,8 +118,8 @@ exports.read_list_bydate = function (req, res) {
                     }
                 })
             })
-        }else{
-            res.send(false)
+        } else {
+            res.send(data)
         }
 
     })
@@ -154,10 +142,21 @@ exports.read_list_bydate_img = function (req, res) {
 
 exports.read_list_onlydate = function (req, res) {
     let data = [];
-    let { sl, date } = req.params;
-    _date = date.replace(/_/g, '/');
-    console.log(_date)
-    Fail.find({ date:_date }, function (err, fail) {
+    let { sl, date,plate,time } = req.params;
+    
+    let obj = {}
+    if(plate!=='--'){
+        obj.Blate={ $regex: plate, $options: 'i' };
+    }
+    if(date!=='--'){
+       let  _date = date.replace(/_/g, '/');
+        obj.date= { $regex: _date, $options: 'i' };
+    }
+    if(time!=='--'){
+        obj.time={ $regex: time, $options: 'i' };
+    }
+    
+    Fail.find( obj, function (err, fail) {
         if (err) res.send(err);
         if (fail && fail.length > 0) {
             data = fail;
@@ -167,24 +166,26 @@ exports.read_list_onlydate = function (req, res) {
                     data[index].user = failUser[0]
                     if (index === data.length - 1) {
                         setTimeout(() => {
-                            res.json(Chonfile(data, sl))
-                        }, 200)
 
+                            res.json({ data: Chonfile(data, sl), maxSl: data.length })
+                        }, 200)
                     }
                 })
             })
-        }else{
-            res.send(false)
+        } else {
+            res.send(data)
         }
 
     })
 }
 
+
+
 function Chonfile(arr, soluong) {
     soluong = parseInt(soluong);
-    soluong = soluong * 15;
-    if (arr.length > (soluong + 15)) {
-        return (arr.slice(soluong, soluong + 15));
+    soluong = soluong * 10;
+    if (arr.length > (soluong + 10)) {
+        return (arr.slice(soluong, soluong + 10));
     } else {
         return arr.slice(soluong, arr.length);
     }
