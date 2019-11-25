@@ -46,7 +46,7 @@ exports.read_a_fail = function(req, res) {
 
             if(failUser){
                 setTimeout(()=>{
-                    console.log(failUser)
+                    //console.log(failUser)
                     res.json({user:failUser[0],fails : fail})
                 },200)
             }
@@ -77,8 +77,7 @@ exports.read_list_byplate = function(req,res){
                             })
                         })
                        
-                    })
-                   
+                    })     
                     if(index===req.body.plate.length-1){
                         setTimeout(()=>{
                             
@@ -89,7 +88,6 @@ exports.read_list_byplate = function(req,res){
                         },1000)
                     }
                 })
-    
             }else{
                 res.json({
                     success :false
@@ -138,10 +136,15 @@ exports.read_list_bydate = function(req,res){
 }
 
 exports.read_list_bydate_img = function (req,res){
-    console.log('asdfasdfasdfasdf')
-    fails.find({Blate:req.headers.plate,data:req.headers.date},function(err,fail){
+    
+    let plate = req.params.plate;
+    let date = req.params.date.replace(/_/g,'/');
+    
+    Fail.find({Blate:plate,date:date},function(err,fail){
         if(err) res.send(err);
-        res.json(fail)
+        setTimeout(()=>{
+            res.json(fail)
+        },200)
     })
 }
 

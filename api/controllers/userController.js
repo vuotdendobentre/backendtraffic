@@ -1,6 +1,20 @@
 var mongoose = require('mongoose'),
 User = mongoose.model('users');
 
+exports.read_list_user = function(req,res){
+  User.find({},function(err,user){
+    if(err) res.send(err)
+    let result = [];
+    user.map((value,index)=>{
+      if(value.rule ==='1'){
+        result.push(value)
+      }
+      if(user.length-1 === index){
+        res.json(result)
+      }
+    })
+  })
+}
 
 
 exports.create_a_user = function(req, res) {

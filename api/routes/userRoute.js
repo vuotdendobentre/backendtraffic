@@ -4,6 +4,7 @@ module.exports = function(app){
     //user route
     app.route('/users')           
         .post(user.create_a_user)
+        .get(user.read_list_user)
 
     app.route('/users/:username')
         .get(user.read_a_user)

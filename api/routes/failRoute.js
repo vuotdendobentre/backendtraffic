@@ -16,6 +16,6 @@ module.exports = function(app){
         .post(Fail.read_list_byplate)
 
         
-    app.route('/fails/byplateanddate')
+    app.route('/fails/:plate/:date')
         .get(Fail.read_list_bydate_img)
 };
