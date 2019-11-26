@@ -145,7 +145,7 @@ exports.read_list_onlydate = function (req, res) {
     let { sl, date,plate,time } = req.params;
     
     let obj = {}
-    if(plate!=='--'){
+    if(plate!=='--'){   
         obj.Blate={ $regex: plate, $options: 'i' };
     }
     if(date!=='--'){

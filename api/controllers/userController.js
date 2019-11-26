@@ -2,7 +2,9 @@ var mongoose = require('mongoose'),
 User = mongoose.model('users');
 
 exports.read_list_user = function(req,res){
+  
   User.find({},function(err,user){
+    console.log(req.headers.sl)
     if(err) res.send(err)
     let result = [];
     user.map((value,index)=>{
@@ -10,7 +12,7 @@ exports.read_list_user = function(req,res){
         result.push(value)
       }
       if(user.length-1 === index){
-        res.json(result)
+        res.json({data : Chonfile(result,req.headers.sl),maxSl : user.length})
       }
     })
   })
@@ -84,4 +86,16 @@ exports.authenticate_a_user = function(req,res){
     }
 
   })
+}
+
+
+function Chonfile(arr, soluong) {
+  soluong = parseInt(soluong);
+  soluong = soluong * 15;
+  if (arr.length > (soluong + 15)) {
+      return (arr.slice(soluong, soluong + 15 ));
+  } else {
+      return arr.slice(soluong, arr.length);
+  }
+
 }
