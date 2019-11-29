@@ -1,6 +1,7 @@
 let mongoose = require('mongoose'),
     Fail = mongoose.model('fails');
 User = mongoose.model('users');
+Car = mongoose.model('cars');
 
 
 
@@ -177,6 +178,38 @@ exports.read_list_onlydate = function (req, res) {
         }
 
     })
+}
+
+
+exports.all_submit = function(req,res){
+    let { Blate , label , color , number , nameCar , username , password , nameUser , CMND , SDT , date , time }= req.body;
+    let new_fail = new Fail({Blate,date,time });
+    if(date!==''){
+        new_fail.save(function (err, fail) {
+            if (err)
+                res.send(err);
+        });
+        console.log('fail')
+    }
+    let new_car = new Car({Blate,label,color,number, manaUsername : username,name:nameCar });
+    if(label!==''){
+        new_car.save(function (err, car) {
+            if (err)
+                res.send(err);
+        });
+        console.log('car')
+    }
+    if(password!==''){
+        let plate = [];
+        plate.push(Blate);
+        let new_user = new User({username,password,name:nameUser,SDT,CMND,rule:1,Blate:plate});
+        new_user.save(function (err, user) {
+            if (err)
+                res.send(err);
+        });
+        console.log('user')
+    }
+    res.send(true)
 }
 
 
