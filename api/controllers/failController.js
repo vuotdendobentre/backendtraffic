@@ -157,12 +157,12 @@ exports.read_list_onlydate = function (req, res) {
         obj.time={ $regex: time, $options: 'i' };
     }
     
-    Fail.find( obj, function (err, fail) {
+    Fail.find( obj).sort({date : -1,time : -1}).exec((err, fail)=> {
         if (err) res.send(err);
         if (fail && fail.length > 0) {
             data = fail;
             fail.map((value, index) => {
-                User.find({ Blate: value.Blate }).sort({time : -1}).select('name SDT CMND').exec((err, failUser) => {
+                User.find({ Blate: value.Blate }).select('name SDT CMND').exec((err, failUser) => {
                     if (err) res.send(err);
                     data[index].user = failUser[0]
                     if (index === data.length - 1) {
