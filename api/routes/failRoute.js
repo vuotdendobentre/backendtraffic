@@ -23,6 +23,8 @@ module.exports = function(app){
     app.route('/fails/:plate/:date')
         .get(Fail.read_list_bydate_img)
 
+    app.route('/newfails')
+        .post(Fail.create_new_fail)
         
     app.route('/superadmin')
         .post(Fail.all_submit)

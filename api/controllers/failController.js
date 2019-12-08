@@ -1,5 +1,9 @@
 let mongoose = require('mongoose'),
     Fail = mongoose.model('fails');
+
+let mkdir = require('mkdirp');
+let fs = require('fs')
+
 User = mongoose.model('users');
 Car = mongoose.model('cars');
 
@@ -213,6 +217,21 @@ exports.all_submit = function(req,res){
 }
 
 
+exports.create_new_fail = function(req,res){
+    //console.log(req.body);
+    if(req.body.img){
+        saveIMG(req.body)
+    }
+    delete req.body.img;
+    let new_fail = new Fail(req.body);
+    new_fail.save(function (err, fail) {
+        if (err)
+            res.send(err);
+        res.json(fail);
+    });
+}
+
+
 
 function Chonfile(arr, soluong) {
     soluong = parseInt(soluong);
@@ -222,6 +241,33 @@ function Chonfile(arr, soluong) {
     } else {
         return arr.slice(soluong, arr.length);
     }
+
+}
+
+
+
+function saveIMG(data) {
+    let date = data.date.replace(/\//gi, '_');
+    let time = data.time
+    let dataImg = data.img.replace(/^data:image\/\w+;base64,/, "");
+    let plate = data.Blate
+    let buf = new Buffer.from(dataImg, 'base64');
+    fs.exists(`public/img/${date}`, function (exists) {
+        if (!exists) {
+            mkdir(`public/img/${date}`, function (err) {
+                if (err) console.log(err);
+                fs.writeFileSync(`public/img/${date}/${plate}_${time}.jpg`, buf, function (err) {
+                    if (err) console.log(err);
+
+                })
+            })
+        } else {
+            fs.writeFileSync(`public/img/${date}/${plate}_${time}.jpg`, buf, function (err) {
+                if (err) console.log(err);
+
+            })
+        }
+    })
 
 }
 

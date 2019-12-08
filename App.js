@@ -16,8 +16,10 @@ let cors = require('cors');
 let port = process.env.PORT || 8000;
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
+// app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.use(function(req,res,next){
