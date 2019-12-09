@@ -18,7 +18,7 @@ exports.read_list_fail = function (req, res) {
         fail.map((value, index) => {
             User.find({ Blate: value.Blate }).select('name SDT CMND').exec((err, failUser) => {
                 if (err) res.send(err);
-                data[index].user = failUser[0]
+                data[index].user = failUser[0] ? failUser[0] : []
                 if (index === data.length - 1) {
                     setTimeout(() => {
                         res.json(data)
@@ -81,7 +81,7 @@ exports.read_list_byplate = function (req, res) {
                     if(req.body.plate.map.length-1 === index){
                         setTimeout(()=>{
                             for(let i = 0 ; i < result.length ; i++){
-                                result[i].user = user[0] ;
+                                result[i].user = user[0] ? user [0] : []
                             }
                             console.log(result)
                             res.json(result)
