@@ -11,7 +11,8 @@ var UserSchema = new Schema({
   Blate: String,
   date: String,
   time: String,
-  user : Object
+  user : Object,
+  type: Number
 
 });
 
