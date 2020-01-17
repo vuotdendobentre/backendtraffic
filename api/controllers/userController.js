@@ -12,7 +12,7 @@ exports.read_list_user = function(req,res){
         result.push(value)
       }
       if(user.length-1 === index){
-        res.json({data : Chonfile(result,req.headers.sl),maxSl : user.length})
+        res.json({data : result,maxSl : user.length})
       }
     })
   })
