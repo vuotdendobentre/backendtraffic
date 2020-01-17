@@ -13,7 +13,7 @@ let Car = require('./api/models/carModel')
 let morgan = require('morgan');
 let cors = require('cors');
 
-let port = process.env.PORT || 80;
+let port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(bodyParser.json({limit: '10mb', extended: true}))
