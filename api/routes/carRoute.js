@@ -7,7 +7,7 @@ module.exports = function(app){
 
     app.route('/cars/:blate')
         .get(car.read_a_car)
-    
+        .post(car.add_new_car)
        
     
     

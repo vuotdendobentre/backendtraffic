@@ -17,3 +17,11 @@ exports.read_a_car = function (req, res) {
 };
 
 
+exports.add_new_car = function (req,res) {
+  let new_car = new Car(req.body)
+  new_car.save((err,car)=>{
+    if(err) res.send(err)
+    res.json(car)
+  })
+}
+
