@@ -1,1 +1,0 @@
-module.exports.API_URL = 'http://vuotdendotpbentre.ddns.net:8000';
