@@ -1,10 +1,10 @@
 module.exports = function(app){
     var Fail = require('../controllers/failController');
 
-    Fail route
+    // Fail route
 
-    app.route('/fails/newbydate/:plate/:date/:time')
-        .get(Fail.read_list_onlydate)
+    // app.route('/fails/newbydate/:plate/:date/:time')
+    //     .get(Fail.read_list_onlydate)
 
     app.route('/fails')     
         .get(Fail.read_list_fail)      
