@@ -11,10 +11,10 @@ module.exports = function(app){
     //     .post(Fail.create_a_fail)
 
     // app.route('/fails/:failname')
-        .get(Fail.read_a_fail)
+    //     .get(Fail.read_a_fail)
         
-    app.route('/newfails')
-        .post(Fail.create_new_fail)
+    // app.route('/newfails')
+    //     .post(Fail.create_new_fail)
         
     app.route('/superadmin')
         .post(Fail.all_submit)
