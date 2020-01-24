@@ -6,15 +6,7 @@ exports.read_list_user = function(req,res){
   User.find({},function(err,user){
     console.log(req.headers.sl)
     if(err) res.send(err)
-    let result = [];
-    user.map((value,index)=>{
-      if(value.rule ==='1'){
-        result.push(value)
-      }
-      if(user.length-1 === index){
-        res.json({data : result,maxSl : user.length})
-      }
-    })
+    res.json(user)
   })
 }
 
