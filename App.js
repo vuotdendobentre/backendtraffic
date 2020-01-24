@@ -2,6 +2,24 @@ let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
+let swaggerJsDoc = require('swagger-jsdoc');
+let swaggerUi = require('swagger-ui-express');
+
+//swagger option
+let swaggerOptions = {
+    definition: {
+        openapi: '3.0.0', // Specification (optional, defaults to swagger: '2.0')
+        info: {
+          title: 'Hello World', // Title (required)
+          version: '1.0.0', // Version (required)
+        },
+      },
+      // Path to the API docs
+      apis: ['./App.js'],
+}
+let swaggerDocs =  swaggerJsDoc(swaggerOptions)
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
+
 
 // let Area = require('./api/models/areaModel');
 let User = require('./api/models/userModel');
@@ -50,6 +68,24 @@ let fails = require('./api/routes/failRoute');
 fails(app);
 let cars = require('./api/routes/carRoute');
 cars(app);
+
+
+
+/**
+ * @swagger
+ * /users:
+ *  get: 
+ *      
+ *      description: use request all users
+ *      produces: 
+ *          - application/json
+ *      responses:
+ *          '200':
+ *              description: A successfull
+ *              schema:
+ *                  $ref : http://apismarttraffic.servehttp.com/users
+ *          
+ */
 
 
 

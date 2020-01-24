@@ -43,7 +43,6 @@ exports.update_a_user = function(req, res) {
 exports.find_user = function(req,res){
   User.find({username:req.params.username},function(err,user){
     if(err) res.json(err);
-    console.log(user);
     res.json({
       status : user.length>0 ? true : false
     })
@@ -81,13 +80,3 @@ exports.authenticate_a_user = function(req,res){
 }
 
 
-function Chonfile(arr, soluong) {
-  soluong = parseInt(soluong);
-  soluong = soluong * 15;
-  if (arr.length > (soluong + 15)) {
-      return (arr.slice(soluong, soluong + 15 ));
-  } else {
-      return arr.slice(soluong, arr.length);
-  }
-
-}
