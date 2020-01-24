@@ -25,3 +25,10 @@ exports.add_new_car = function (req,res) {
   })
 }
 
+exports.read_list_car = function (req,res){
+  Car.find({},(err,car)=>{
+    if(err) res.send(err);
+    res.json(car)
+  })
+}
+
