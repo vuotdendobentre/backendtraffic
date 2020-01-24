@@ -76,12 +76,13 @@ cars(app);
  * /users:
  *  get: 
  *      
- *      description: use request all users
+ *      description: get all users
  *      produces: 
  *          - application/json
  *      responses:
  *          '200':
  *              description: A successfull
+ *              link : http://apismarttraffic.servehttp.com/users
  *              schema:
  *                  $ref : http://apismarttraffic.servehttp.com/users
  *          
