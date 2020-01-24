@@ -75,14 +75,12 @@ cars(app);
  * @swagger
  * /users:
  *  get: 
- *      
  *      description: get all users
  *      produces: 
  *          - application/json
  *      responses:
  *          '200':
- *              description: A successfull
- *              link : http://apismarttraffic.servehttp.com/users
+ *              description: A successfull              
  *              schema:
  *                  $ref : http://apismarttraffic.servehttp.com/users
  *          
