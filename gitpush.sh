@@ -1,5 +1,7 @@
 #!/bin/bash
 git add .
-git commit -m 'update'
+echo input message:
+read mess
+git commit -m "$mess"
 git push
 
