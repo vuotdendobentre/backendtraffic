@@ -80,6 +80,15 @@ cars(app);
  *              description: A successfull              
  *              schema:
  *                  $ref : http://apismarttraffic.servehttp.com/users
+ * /cars
+ *  get:
+ *      description: get all cars
+ *      responses:
+ *          '200':
+ *              description: True
+ *              schema:
+ *                  $ref: http://apismarttraffic.servehttp.com/cars
+ *      
  *          
  */
 
