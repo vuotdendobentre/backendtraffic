@@ -69,8 +69,21 @@ fails(app);
 let cars = require('./api/routes/carRoute');
 cars(app);
 
-//asdasd
+
 /**
+ * @swagger
+ * /users:
+ *  get: 
+ *      description: get all users     
+ *      responses:
+ *          '200':
+ *              description: A successfull              
+ *              schema:
+ *                  $ref : http://apismarttraffic.servehttp.com/users
+ *          
+ */
+
+ /**
  * @swagger
  * /users:
  *  get: 
