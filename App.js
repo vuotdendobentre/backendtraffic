@@ -66,8 +66,8 @@ let users = require('./api/routes/userRoute');
 users(app);
 let fails = require('./api/routes/failRoute');
 fails(app);
-let cars = require('./api/routes/carRoute');
-cars(app);
+// let cars = require('./api/routes/carRoute');
+// cars(app);
 
 //asdasd
 /**
