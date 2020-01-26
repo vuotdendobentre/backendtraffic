@@ -83,19 +83,6 @@ cars(app);
  *          
  */
 
- /**
- * @swagger
- * /users:
- *  get: 
- *      description: get all users     
- *      responses:
- *          '200':
- *              description: A successfull              
- *              schema:
- *                  $ref : http://apismarttraffic.servehttp.com/users
- *          
- */
-
 
 
 app.listen(port,()=>{
