@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon App",
+    "start": "nodemon --watch *.js --watch *.yaml App",
     "build": "scripts build"
   },
+  
   "author": "lcnghia95",
   "license": "ISC",
   "dependencies": {

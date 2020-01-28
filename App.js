@@ -14,8 +14,9 @@ let swaggerOptions = {
           version: '1.0.0', // Version (required)
         },
       },
+      host : 'http://localhost:3000',
       // Path to the API docs
-      apis: ['./App.js'],
+      apis: ['./doc.yaml'],
 }
 let swaggerDocs =  swaggerJsDoc(swaggerOptions)
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
@@ -80,15 +81,8 @@ cars(app);
  *              description: A successfull              
  *              schema:
  *                  $ref : http://apismarttraffic.servehttp.com/users
- * /cars:
- *  get:
- *      description: get all cars
- *      responses:
- *          '200':
- *              description: True
- *              schema:
- *                  $ref: http://apismarttraffic.servehttp.com/cars
- *      
+ * 
+ * 
  *          
  */
 
