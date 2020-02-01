@@ -34,11 +34,10 @@ paths:
       - "fail (lỗi vi phạm)"
       summary: "lấy danh sách lỗi vi phạm"
       description: "Multiple status values can be provided with comma separated strings"
-      operationId: "findfailsByStatus"
+      operationId: "findfails"
       produces:
       - "application/xml"
       - "application/json"
-
       responses:
         200:
           description: "successful operation"
@@ -48,7 +47,8 @@ paths:
               $ref: "#/definitions/fail"
         400:
           description: "Invalid status value"
-    post:
+  /newfails:
+     post:
       tags:
       - "fail (lỗi vi phạm)"
       summary: "Thêm lỗi vi phạm (phía AI)"
@@ -70,97 +70,23 @@ paths:
       responses:
         405:
           description: "Invalid input"
-      security:
-      - failcar_auth:
-        - "write:fails"
-        - "read:fails"
-  /fail/findByStatus:
+  /fails/{plate}:
     get:
       tags:
       - "fail (lỗi vi phạm)"
-      summary: "Finds fails by status"
-      description: "Multiple status values can be provided with comma separated strings"
-      operationId: "findfailsByStatus"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "status"
-        in: "query"
-        description: "Status values that need to be considered for filter"
-        required: true
-        type: "array"
-        items:
-          type: "string"
-          enum:
-          - "available"
-          - "pending"
-          - "sold"
-          # default: "available"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/fail"
-        400:
-          description: "Invalid status value"
-      security:
-      - failcar_auth:
-        - "write:fails"
-        - "read:fails"
-  /fail/findByTags:
-    get:
-      tags:
-      - "fail (lỗi vi phạm)"
-      summary: "Finds fails by tags"
-      description: "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing."
-      operationId: "findfailsByTags"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "tags"
-        in: "query"
-        description: "Tags to filter by"
-        required: true
-        type: "array"
-        items:
-          type: "string"
-        collectionFormat: "multi"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/fail"
-        400:
-          description: "Invalid tag value"
-      security:
-      - failcar_auth:
-        - "write:fails"
-        - "read:fails"
-      deprecated: true
-  /fail/{failId}:
-    get:
-      tags:
-      - "fail (lỗi vi phạm)"
-      summary: "Find fail by ID"
+      summary: "tim lỗi vi phạm bằng biển số"
       description: "Returns a single fail"
-      operationId: "getfailById"
+      operationId: "plate"
       produces:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "failId"
+      - name: "plate"
         in: "path"
-        description: "ID of fail to return"
+        description: "ex: 59G213526"
         required: true
-        type: "integer"
-        format: "int64"
+        type: "string"
+        format: "string"
       responses:
         200:
           description: "successful operation"
@@ -170,109 +96,6 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "fail not found"
-      security:
-      - api_key: []
-    post:
-      tags:
-      - "fail (lỗi vi phạm)"
-      summary: "Updates a fail in the car with form data"
-      description: ""
-      operationId: "updatefailWithForm"
-      consumes:
-      - "application/x-www-form-urlencoded"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "failId"
-        in: "path"
-        description: "ID of fail that needs to be updated"
-        required: true
-        type: "integer"
-        format: "int64"
-      - name: "name"
-        in: "formData"
-        description: "Updated name of the fail"
-        required: false
-        type: "string"
-      - name: "status"
-        in: "formData"
-        description: "Updated status of the fail"
-        required: false
-        type: "string"
-      responses:
-        405:
-          description: "Invalid input"
-      security:
-      - failcar_auth:
-        - "write:fails"
-        - "read:fails"
-    delete:
-      tags:
-      - "fail (lỗi vi phạm)"
-      summary: "Deletes a fail"
-      description: ""
-      operationId: "deletefail"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "api_key"
-        in: "header"
-        required: false
-        type: "string"
-      - name: "failId"
-        in: "path"
-        description: "fail id to delete"
-        required: true
-        type: "integer"
-        format: "int64"
-      responses:
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "fail not found"
-      security:
-      - failcar_auth:
-        - "write:fails"
-        - "read:fails"
-  /fail/{failId}/uploadImage:
-    post:
-      tags:
-      - "fail (lỗi vi phạm)"
-      summary: "uploads an image"
-      description: ""
-      operationId: "uploadFile"
-      consumes:
-      - "multipart/form-data"
-      produces:
-      - "application/json"
-      parameters:
-      - name: "failId"
-        in: "path"
-        description: "ID of fail to update"
-        required: true
-        type: "integer"
-        format: "int64"
-      - name: "additionalMetadata"
-        in: "formData"
-        description: "Additional data to pass to server"
-        required: false
-        type: "string"
-      - name: "file"
-        in: "formData"
-        description: "file to upload"
-        required: false
-        type: "file"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResponse"
-      security:
-      - failcar_auth:
-        - "write:fails"
-        - "read:fails"
   /car/inventory:
     get:
       tags:

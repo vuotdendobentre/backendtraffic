@@ -36,7 +36,7 @@ exports.create_a_fail = function (req, res) {
 
 
 exports.read_a_fail = function (req, res) {
-    let plate = req.params.failname
+    let plate = req.params.plate
     Fail.aggregate([
         {$match : {Blate : plate}},
         {$lookup : { 
