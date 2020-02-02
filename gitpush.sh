@@ -1,7 +1,6 @@
 #!/bin/bash
 git add .
-echo input message:
-read mess
+read -p "input message: " mess
 git commit -m "$mess"
 git push
 

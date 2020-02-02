@@ -40,6 +40,10 @@ exports.update_a_user = function(req, res) {
 };
 
 
+
+
+
+
 exports.find_user = function(req,res){
   User.find({username:req.params.username},function(err,user){
     if(err) res.json(err);
