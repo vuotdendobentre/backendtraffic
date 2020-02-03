@@ -15,8 +15,8 @@ exports.read_list_fail = function (req, res) {
         {
             $lookup : {
                 from: 'users',
-                localField : 'Blate',
-                foreignField : 'Blate',
+                localField : 'Plate',
+                foreignField : 'Plate',
                 as : 'user'
             }
         }
@@ -37,12 +37,13 @@ exports.create_a_fail = function (req, res) {
 
 exports.read_a_fail = function (req, res) {
     let plate = req.params.plate
+    console.log(req.params.plate)
     Fail.aggregate([
-        {$match : {Blate : plate}},
+        {$match : {Plate : plate}},
         {$lookup : { 
             from: 'users',
-                localField : 'Blate',
-                foreignField : 'Blate',
+                localField : 'Plate',
+                foreignField : 'Plate',
                 as : 'user'
         }}
     ]).sort({date:-1,time:-1}).then(data=>{
@@ -55,12 +56,12 @@ exports.read_a_fail = function (req, res) {
 //     let result = [];
 //     console.log(req.body.plate)
 //     try {
-//         User.find({Blate:req.body.plate}).select('name SDT CMND').exec((err,user)=>{
+//         User.find({Plate:req.body.plate}).select('name SDT CMND').exec((err,user)=>{
             
 //             if(user){
 //                 req.body.plate.map((value,index)=>{
 //                     setTimeout(()=>{
-//                         Fail.find({Blate:value},(err,fail)=>{
+//                         Fail.find({Plate:value},(err,fail)=>{
 //                             if(err) res.send(err);
 //                             setTimeout(()=>{
 //                                 if(fail){
@@ -106,7 +107,7 @@ exports.read_a_fail = function (req, res) {
 //         data = fail;
 //         if (data.length > 0) {
 //             fail.map((value, index) => {
-//                 User.find({ Blate: value.Blate }).select('name SDT CMND').exec((err, failUser) => {
+//                 User.find({ Plate: value.Plate }).select('name SDT CMND').exec((err, failUser) => {
 //                     if (err) res.send(err);
 //                     data[index].user = failUser;
 //                     if (index === data.length - 1) {
@@ -128,7 +129,7 @@ exports.read_a_fail = function (req, res) {
 //     let plate = req.params.plate;
 //     let date = req.params.date.replace(/_/g, '/');
 
-//     Fail.find({ Blate: plate, date: date }, function (err, fail) {
+//     Fail.find({ Plate: plate, date: date }, function (err, fail) {
 //         if (err) res.send(err);
       
 //         res.json(fail)
@@ -142,7 +143,7 @@ exports.read_list_onlydate = function (req, res) {
     
     let obj = {}
     if(plate!=='--'){   
-        obj.Blate={ $regex: plate, $options: 'i' };
+        obj.Plate={ $regex: plate, $options: 'i' };
     }
     if(date!=='--'){
        let  _date = date.replace(/_/g, '/');
@@ -157,7 +158,7 @@ exports.read_list_onlydate = function (req, res) {
         if (fail && fail.length > 0) {
             data = fail;
             fail.map((value, index) => {
-                User.find({ Blate: value.Blate }).select('name SDT CMND').exec((err, failUser) => {
+                User.find({ Plate: value.Plate }).select('name SDT CMND').exec((err, failUser) => {
                     if (err) res.send(err);
                     data[index].user = failUser[0]
                     if (index === data.length - 1) {
@@ -177,8 +178,8 @@ exports.read_list_onlydate = function (req, res) {
 
 
 exports.all_submit = function(req,res){
-    let { Blate , label , color , number , nameCar , username , password , nameUser , CMND , SDT , date , time }= req.body;
-    let new_car = new Car({Blate,label,color,number, manaUsername : username,name:nameCar });
+    let { Plate , label , color , number , nameCar , username , password , nameUser , CMND , SDT , date , time }= req.body;
+    let new_car = new Car({Plate,label,color,number, manaUsername : username,name:nameCar });
     if(label!==''){
         new_car.save(function (err, car) {
             if (err)
@@ -188,8 +189,8 @@ exports.all_submit = function(req,res){
     }
     if(password!==''){
         let plate = [];
-        plate.push(Blate);
-        let new_user = new User({username,password,name:nameUser,SDT,CMND,rule:1,Blate:plate});
+        plate.push(Plate);
+        let new_user = new User({username,password,name:nameUser,SDT,CMND,rule:1,Plate:plate});
         new_user.save(function (err, user) {
             if (err)
                 res.send(err);
@@ -233,7 +234,7 @@ function saveIMG(data) {
     let date = data.date.replace(/\//gi, '_');
     let time = data.time
     let dataImg = data.img.replace(/^data:image\/\w+;base64,/, "");
-    let plate = data.Blate
+    let plate = data.Plate
     let buf = new Buffer.from(dataImg, 'base64');
     fs.exists(`public/img/${date}`, function (exists) {
         if (!exists) {

@@ -5,12 +5,13 @@ module.exports = function(app){
     // app.route('/cars')           
     //     .post(car.create_a_car)
 
-    app.route('/cars/:blate')
+    app.route('/cars/:Plate')
         .get(car.read_a_car)
-        .post(car.add_new_car)
+        
     
     app.route('/cars')
         .get(car.read_list_car)
+        .post(car.add_new_car)
        
     
     

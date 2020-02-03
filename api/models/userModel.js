@@ -13,7 +13,7 @@ var UserSchema = new Schema({
         SDT : String,
         CMND : String,
         rule : String,
-        Blate : Array
+        Plate : Array
         
 }); 
 

@@ -4,7 +4,7 @@ User = mongoose.model('users');
 exports.read_list_user = function(req,res){
   
   User.find({},function(err,user){
-    console.log(req.headers.sl)
+    //console.log(req.headers.sl)
     if(err) res.send(err)
     res.json(user)
   })
@@ -68,7 +68,7 @@ exports.authenticate_a_user = function(req,res){
       setTimeout(() => {
         res.json({
           role : user.rule,
-          plate : user.Blate ? user.Blate :[],
+          plate : user.Plate ? user.Plate :[],
           success : true,
           msg : 'authenticate success'
         })

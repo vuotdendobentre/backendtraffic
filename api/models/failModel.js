@@ -8,10 +8,10 @@ var UserSchema = new Schema({
     required: true,
     auto: true,
   },
-  Blate: String,
+  Plate: String,
   date: String,
   time: String,
-  user : Object,
+  //user : Object,
   type: Number
 
 });

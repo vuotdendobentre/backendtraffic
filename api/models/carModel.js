@@ -7,7 +7,7 @@ var UserSchema = new Schema({
           required: true,
           auto: true,
         },
-     Blate : String,
+     Plate : String,
      label: String,
      color : String,
      number : String,

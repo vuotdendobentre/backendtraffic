@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch *.js --watch *.yaml App",
+    "start": "nodemon --watch api/ --watch *.js --watch *.yaml App",
     "build": "scripts build"
   },
   
