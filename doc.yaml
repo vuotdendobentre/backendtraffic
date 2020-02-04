@@ -151,10 +151,9 @@ paths:
         in: "path"
         description: "ex: 59G213526"
         required: true
-        type: "integer"
-        maximum: 10.0
-        minimum: 1.0
-        format: "int64"
+        type: "string"
+      
+        
       responses:
         200:
           description: "successful operation"
@@ -165,11 +164,11 @@ paths:
         404:
           description: "Order not found"
    
-  /user:
+  /users/login:
     post:
       tags:
       - "user (thông tin tài khoản)"
-      summary: "Create user"
+      summary: "Đăng nhập"
       description: "This can only be done by the logged in user."
       operationId: "createUser"
       produces:
@@ -178,109 +177,33 @@ paths:
       parameters:
       - in: "body"
         name: "body"
+        example: "{username:'user1',password:'user1'}"
         description: "Created user object"
         required: true
-        schema:
-          $ref: "#/definitions/User"
+        type: "string"
       responses:
         default:
           description: "successful operation"
-  /user/createWithArray:
-    post:
-      tags:
-      - "user (thông tin tài khoản)"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithArrayInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/createWithList:
-    post:
-      tags:
-      - "user (thông tin tài khoản)"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithListInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
-        required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/login:
+  /users:
     get:
       tags:
       - "user (thông tin tài khoản)"
-      summary: "Logs user into the system"
+      summary: "Lấy danh sách user"
       description: ""
-      operationId: "loginUser"
+      operationId: "getUserByName"
       produces:
       - "application/xml"
       - "application/json"
-      parameters:
-      - name: "username"
-        in: "query"
-        description: "The user name for login"
-        required: true
-        type: "string"
-      - name: "password"
-        in: "query"
-        description: "The password for login in clear text"
-        required: true
-        type: "string"
       responses:
         200:
           description: "successful operation"
           schema:
-            type: "string"
-          headers:
-            X-Rate-Limit:
-              type: "integer"
-              format: "int32"
-              description: "calls per hour allowed by the user"
-            X-Expires-After:
-              type: "string"
-              format: "date-time"
-              description: "date in UTC when token expires"
+            $ref: "#/definitions/User"
         400:
-          description: "Invalid username/password supplied"
-  /user/logout:
-    get:
-      tags:
-      - "user (thông tin tài khoản)"
-      summary: "Logs out current logged in user session"
-      description: ""
-      operationId: "logoutUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters: []
-      responses:
-        default:
-          description: "successful operation"
-  /user/{username}:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+  /users/{username}:
     get:
       tags:
       - "user (thông tin tài khoản)"
@@ -392,37 +315,39 @@ definitions:
   User:
     type: "object"
     properties:
-      id:
-        type: "integer"
-        format: "int64"
       username:
         type: "string"
-      firstName:
-        type: "string"
-      lastName:
-        type: "string"
-      email:
-        type: "string"
-      password:
-        type: "string"
-      phone:
-        type: "string"
-      userStatus:
-        type: "integer"
-        format: "int32"
-        description: "User Status"
-    xml:
-      name: "User"
-  Tag:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
+        example: "012345678"
       name:
         type: "string"
+        example: "Lê Công Tuấn Anh"
+      SDT:
+        type: "string"
+        example: "012345678"
+      CMND:
+        type: "string"
+        example: "0916008333"
+      password:
+        type: "string"
+      rule:
+        type: "string"
+      Plate:
+        type: "array"
+        items: "fajsdklfjksldfjl"
+          
+       
     xml:
-      name: "Tag"
+      name: "User"
+  # Tag:
+  #   type: "object"
+  #   properties:
+  #     id:
+  #       type: "integer"
+  #       format: "int64"
+  #     name:
+  #       type: "string"
+  #   xml:
+  #     name: "Tag"
   Fail:
     type: "object"
     properties:

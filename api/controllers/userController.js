@@ -55,6 +55,8 @@ exports.find_user = function(req,res){
 
 exports.authenticate_a_user = function(req,res){
   console.log(req.body)
+  console.log(req.params)
+  console.log(req.headers)
   User.findOne({username:req.body.username},function(err,user){
     if(err) res.send(err);
     if(!user){

@@ -12,7 +12,7 @@ var UserSchema = new Schema({
         password: String,
         SDT : String,
         CMND : String,
-        rule : String,
+        rule : Number,
         Plate : Array
         
 }); 
