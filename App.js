@@ -52,7 +52,7 @@ app.use(morgan('dev'));
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/trafficDB',{useNewUrlParser:true});
-mongoose.set('useCreateindex',true);
+// mongoose.set('useCreateindex',true);
 
 app.get('/',function(req,res){
     res.send('Welcome to the home page!');

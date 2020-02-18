@@ -207,7 +207,7 @@ paths:
     get:
       tags:
       - "user (thông tin tài khoản)"
-      summary: "Get user by user name"
+      summary: "Lấy thông 1 user"
       description: ""
       operationId: "getUserByName"
       produces:

@@ -1,8 +1,9 @@
 let mongoose = require('mongoose'),
     Fail = mongoose.model('fails');
-
+let unixTime = require('unix-timestamp')
 let mkdir = require('mkdirp');
 let fs = require('fs')
+
 
 User = mongoose.model('users');
 Car = mongoose.model('cars');
@@ -10,18 +11,18 @@ Car = mongoose.model('cars');
 
 
 exports.read_list_fail = function (req, res) {
-   
+
     Fail.aggregate([
         {
-            $lookup : {
+            $lookup: {
                 from: 'users',
-                localField : 'Plate',
-                foreignField : 'Plate',
-                as : 'user'
+                localField: 'Plate',
+                foreignField: 'Plate',
+                as: 'user'
             }
         }
-    ]).then(data=>{
-        res.json({data})
+    ]).then(data => {
+        res.json({ data })
     })
 }
 
@@ -39,15 +40,17 @@ exports.read_a_fail = function (req, res) {
     let plate = req.params.plate
     console.log(req.params.plate)
     Fail.aggregate([
-        {$match : {Plate : plate}},
-        {$lookup : { 
-            from: 'users',
-                localField : 'Plate',
-                foreignField : 'Plate',
-                as : 'user'
-        }}
-    ]).sort({date:-1,time:-1}).then(data=>{
-        res.json({data})
+        { $match: { Plate: plate } },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'Plate',
+                foreignField: 'Plate',
+                as: 'user'
+            }
+        }
+    ]).sort({ date: -1, time: -1 }).then(data => {
+        res.json({ data })
     })
 };
 
@@ -57,7 +60,7 @@ exports.read_a_fail = function (req, res) {
 //     console.log(req.body.plate)
 //     try {
 //         User.find({Plate:req.body.plate}).select('name SDT CMND').exec((err,user)=>{
-            
+
 //             if(user){
 //                 req.body.plate.map((value,index)=>{
 //                     setTimeout(()=>{
@@ -82,7 +85,7 @@ exports.read_a_fail = function (req, res) {
 //                 })
 //             }
 //         })
-        
+
 //     } catch (err) {
 //         res.send(false)
 //     }
@@ -131,29 +134,29 @@ exports.read_a_fail = function (req, res) {
 
 //     Fail.find({ Plate: plate, date: date }, function (err, fail) {
 //         if (err) res.send(err);
-      
+
 //         res.json(fail)
-       
+
 //     })
 // }
 
 exports.read_list_onlydate = function (req, res) {
     let data = [];
-    let { sl, date,plate,time } = req.params;
-    
+    let { sl, date, plate, time } = req.params;
+
     let obj = {}
-    if(plate!=='--'){   
-        obj.Plate={ $regex: plate, $options: 'i' };
+    if (plate !== '--') {
+        obj.Plate = { $regex: plate, $options: 'i' };
     }
-    if(date!=='--'){
-       let  _date = date.replace(/_/g, '/');
-        obj.date= { $regex: _date, $options: 'i' };
+    if (date !== '--') {
+        let _date = date.replace(/_/g, '/');
+        obj.date = { $regex: _date, $options: 'i' };
     }
-    if(time!=='--'){
-        obj.time={ $regex: time, $options: 'i' };
+    if (time !== '--') {
+        obj.time = { $regex: time, $options: 'i' };
     }
-    
-    Fail.find( obj).sort({date : -1,time : -1}).exec((err, fail)=> {
+
+    Fail.find(obj).sort({ date: -1, time: -1 }).exec((err, fail) => {
         if (err) res.send(err);
         if (fail && fail.length > 0) {
             data = fail;
@@ -177,20 +180,20 @@ exports.read_list_onlydate = function (req, res) {
 }
 
 
-exports.all_submit = function(req,res){
-    let { Plate , label , color , number , nameCar , username , password , nameUser , CMND , SDT , date , time }= req.body;
-    let new_car = new Car({Plate,label,color,number, manaUsername : username,name:nameCar });
-    if(label!==''){
+exports.all_submit = function (req, res) {
+    let { Plate, label, color, number, nameCar, username, password, nameUser, CMND, SDT, date, time } = req.body;
+    let new_car = new Car({ Plate, label, color, number, manaUsername: username, name: nameCar });
+    if (label !== '') {
         new_car.save(function (err, car) {
             if (err)
                 res.send(err);
         });
         console.log('car')
     }
-    if(password!==''){
+    if (password !== '') {
         let plate = [];
         plate.push(Plate);
-        let new_user = new User({username,password,name:nameUser,SDT,CMND,rule:1,Plate:plate});
+        let new_user = new User({ username, password, name: nameUser, SDT, CMND, rule: 1, Plate: plate });
         new_user.save(function (err, user) {
             if (err)
                 res.send(err);
@@ -201,11 +204,12 @@ exports.all_submit = function(req,res){
 }
 
 
-exports.create_new_fail = function(req,res){
-    //console.log(req.body);
-    if(req.body.img){
+exports.create_new_fail = function (req, res) {
+
+    if (req.body.img) {
         saveIMG(req.body)
     }
+
     delete req.body.img;
     let new_fail = new Fail(req.body);
     new_fail.save(function (err, fail) {
@@ -213,10 +217,13 @@ exports.create_new_fail = function(req,res){
             res.send(err);
         res.json(fail);
     });
+
+
+
 }
 
 
-
+//////co the bo 
 // function Chonfile(arr, soluong) {
 //     soluong = parseInt(soluong);
 //     soluong = soluong * 10;
@@ -230,26 +237,62 @@ exports.create_new_fail = function(req,res){
 
 
 
+// function saveIMG(data) {
+//     let date = data.date.replace(/\//gi, '_');
+//     let time = data.time
+//     let dataImg = data.img.replace(/^data:image\/\w+;base64,/, "");
+//     let plate = data.Plate
+//     let buf = new Buffer.from(dataImg, 'base64');
+//     fs.exists(`public/img/${date}`, function (exists) {
+//         if (!exists) {
+//             mkdir(`public/img/${date}`, function (err) {
+//                 if (err) console.log(err);
+//                 fs.writeFileSync(`public/img/${date}/${plate}_${time}.jpg`, buf, function (err) {
+//                     if (err) console.log(err);
+
+//                 })
+//             })
+//         } else {
+//             fs.writeFileSync(`public/img/${date}/${plate}_${time}.jpg`, buf, function (err) {
+//                 if (err) console.log(err);
+
+//             })
+//         }
+//     })
+
+// }
+
 function saveIMG(data) {
-    let date = data.date.replace(/\//gi, '_');
+    // let date = data.date.replace(/\//gi, '_');
+    let date = data.date;
     let time = data.time
+    let dateTime = new Date(date + ' ' + time)
+    let timeNumber = unixTime.fromDate(dateTime)
     let dataImg = data.img.replace(/^data:image\/\w+;base64,/, "");
     let plate = data.Plate
     let buf = new Buffer.from(dataImg, 'base64');
-    fs.exists(`public/img/${date}`, function (exists) {
+    let nameIMG = plate + '_' + timeNumber
+
+    fs.exists(`public/img/${nameIMG}.jpg`, function (exists) {
         if (!exists) {
-            mkdir(`public/img/${date}`, function (err) {
-                if (err) console.log(err);
-                fs.writeFileSync(`public/img/${date}/${plate}_${time}.jpg`, buf, function (err) {
-                    if (err) console.log(err);
+            // mkdir(`public/img/${date}`, function (err) {
+            //     if (err) console.log(err);
+            //     fs.writeFileSync(`public/img/${date}/${plate}_${time}.jpg`, buf, function (err) {
+            //         if (err) console.log(err);
 
-                })
+            //     })
+            // })
+            fs.writeFileSync(`public/img/${nameIMG}.jpg`, buf, function (err) {
+                if (err) console.log(err);
+                else {
+
+                    return true
+                }
             })
+
         } else {
-            fs.writeFileSync(`public/img/${date}/${plate}_${time}.jpg`, buf, function (err) {
-                if (err) console.log(err);
 
-            })
+            return false;
         }
     })
 
