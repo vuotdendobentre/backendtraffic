@@ -266,8 +266,10 @@ function saveIMG(data) {
     // let date = data.date.replace(/\//gi, '_');
     let date = data.date;
     let time = data.time
-    let dateTime = new Date(date + ' ' + time)
-    let timeNumber = unixTime.fromDate(dateTime)
+    console.log(date,time)
+    //let dateTime = new Date(date + ' ' + time)
+    let timeNumber = unixTime.fromDate(date + ' ' + time)
+    console.log(timeNumber)
     let dataImg = data.img.replace(/^data:image\/\w+;base64,/, "");
     let plate = data.Plate
     let buf = new Buffer.from(dataImg, 'base64');
