@@ -72,6 +72,7 @@ exports.authenticate_a_user = function(req,res){
           role : user.rule,
           plate : user.Plate ? user.Plate :[],
           success : true,
+          name: user.name,
           msg : 'authenticate success'
         })
       }, 200);
