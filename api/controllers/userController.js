@@ -39,7 +39,12 @@ exports.update_a_user = function(req, res) {
   });
 };
 
-
+exports.delete_a_user = function(req,res){
+  Users.deleteOne({username:req.params.username},function(err){
+    if(err) res.send(err)
+    res.json({message:true})
+  })
+}
 
 
 

@@ -9,6 +9,7 @@ module.exports = function(app){
     app.route('/users/:username')
         .get(user.read_a_user)
         .put(user.update_a_user)
+        .delete(user.delete_a_user)
        
     
     app.route('/users/login')
