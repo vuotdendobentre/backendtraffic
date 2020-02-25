@@ -300,3 +300,37 @@ function saveIMG(data) {
 
 }
 
+
+
+
+exports.get_count_by_user = function(req,res){
+    let Plate = req.params.Plate
+    Fail.find({Plate}).select('Plate type').exec((err,fail)=>{
+        if(err){
+            res.send(err)
+        }
+        let type0 = fail.filter(el=>el.type===0).length
+        let type1 = fail.filter(el=>el.type===1).length
+        let type2 = fail.filter(el=>el.type===2).length
+        res.json({type0,type1,type2})
+        
+        
+    })
+    //res.send(false)
+}
+
+exports.get_count_by_admin = function(req,res){
+    let Plate = req.params.Plate
+    Fail.find({}).select('Plate type').exec((err,fail)=>{
+        if(err){
+            res.send(err)
+        }
+        let type0 = fail.filter(el=>el.type===0).length
+        let type1 = fail.filter(el=>el.type===1).length
+        let type2 = fail.filter(el=>el.type===2).length
+        res.json({type0,type1,type2})
+        
+        
+    })
+    //res.send(false)
+}

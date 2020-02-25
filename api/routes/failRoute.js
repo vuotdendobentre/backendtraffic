@@ -10,6 +10,13 @@ module.exports = function(app){
         .get(Fail.read_list_fail)      
         .post(Fail.create_a_fail)
 
+    app.route('/fails/count')
+        .get(Fail.get_count_by_admin)
+
+    app.route('/fails/count/:Plate')
+        .get(Fail.get_count_by_user)
+
+
     app.route('/fails/:plate')
         .get(Fail.read_a_fail)
         
