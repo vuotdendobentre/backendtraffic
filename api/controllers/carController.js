@@ -32,3 +32,27 @@ exports.read_list_car = function (req,res){
   })
 }
 
+exports.find_car = function(req,res){
+  Car.find({Plate:req.params.Plate},function(err,car){
+    if(err) res.json(err);
+    res.json({
+      status : car.length>0 ? true : false
+    })
+  })
+}
+
+exports.update_a_car = function(req, res) {
+  User.findOneAndUpdate({Plate: req.params.Plate}, req.body, {new: true}, function(err, car) {
+    if (err)
+      res.send(err);
+    res.json(car);
+  });
+};
+
+
+exports.delete_a_car = function(req,res){
+  User.deleteOne({Plate:req.params.Plate},function(err){
+    if(err) res.send(err)
+    res.json({message:true})
+  })
+}
